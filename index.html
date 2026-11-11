@@ -40,6 +40,18 @@ a{color:inherit;text-decoration:none}
 .data-section a { color: #93c5fd; text-decoration: none; }
 .data-section a:hover { text-decoration: underline; }
 </style>
+
+<style>
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-in {
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+    /* Apply animations to your tables and headers */
+    h2, h3, table { opacity: 0; }
+</style>
 </head>
 <body>
 <div class="bg-glow"></div>
@@ -75,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentCategory = section.category;
             const h2 = document.createElement('h2');
             h2.id = currentCategory.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-            h2.textContent = currentCategory;
+            h2.textContent = currentCategory; h2.classList.add('animate-in');
             coursesContainer.appendChild(h2);
             const li = document.createElement('li');
             const a = document.createElement('a');
@@ -88,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (section.subcategory) {
             const h3 = document.createElement('h3');
             h3.textContent = section.subcategory;
-            coursesContainer.appendChild(h3);
+            h3.classList.add('animate-in'); coursesContainer.appendChild(h3);
         }
         const table = document.createElement('table');
         const has4Cols = section.courses.length > 0 && section.courses[0].level !== '';
@@ -99,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
             else tr.innerHTML = `<td><a href="${course.url}" target="_blank">${course.name}</a></td><td>${course.provider}</td>`;
             table.appendChild(tr);
         });
-        coursesContainer.appendChild(table);
+        table.classList.add('animate-in'); coursesContainer.appendChild(table);
     });
     var nav=document.getElementById('nav');
     window.addEventListener('scroll',function(){ nav.classList.toggle('scrolled',window.scrollY>40); },{passive:true});
